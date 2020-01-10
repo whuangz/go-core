@@ -5,8 +5,8 @@ import "net/http"
 const statusUnprocessableEntity = 422
 
 type ResponseError struct {
-	reason string `json:"reason"`
-	status int    `json:"status`
+	Reason string `json:"reason"`
+	Status int    `json:"status`
 }
 
 func (r ResponseError) ResponseError() string { return r.reason }
