@@ -1,16 +1,13 @@
-package logging
+package logger
 
 import (
-	"fmt"
-	"time"
-
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
 
 var log *zap.Logger
 
-func main() {
+func init() {
 	encoderConfig := zapcore.EncoderConfig{
 		TimeKey:      "time",
 		LevelKey:     "level",
@@ -33,17 +30,19 @@ func main() {
 		ErrorOutputPaths: []string{"stderr"},
 	}
 
-	logger, err := config.Build()
-	if err != nil {
-		panic(fmt.Sprintf("log Failed to initialize: %v", err))
-	}
-	logger.Info("log successfully initialized")
+	var err error
 
-	logger.Info("Failed to get Url",
-		zap.String("url", "http://www.google.com"),
-		zap.Int("attempt", 3),
-		zap.Duration("backoff", time.Second),
-	)
+	if log, err = config.Build(); err != nil {
+		panic(err)
+	}
+
+	log.Info("log successfully initialized")
+
+	// log.Info("Failed to get Url",
+	// 	zap.String("url", "http://www.google.com"),
+	// 	zap.Int("attempt", 3),
+	// 	zap.Duration("backoff", time.Second),
+	// )
 }
 
 func Info(msg string, fields ...zap.Field) {
@@ -53,5 +52,5 @@ func Info(msg string, fields ...zap.Field) {
 func Error(msg string, err error, fields ...zap.Field) {
 	fields = append(fields, zap.Error(err))
 
-	log.Error(msg, err...)
+	log.Error(msg, fields...)
 }
