@@ -14,14 +14,11 @@ func init() {
 	}
 }
 
-func GetConfig(name string) map[string]string {
-	conf := make(map[string]string)
-
+func GetConfig(name string) string {
 	envData, ok := os.LookupEnv(name)
 	if !ok {
 		panic(fmt.Sprintf("%s env variable not set", name))
 	}
-	conf[name] = envData
 
-	return conf
+	return envData
 }
