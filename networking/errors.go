@@ -6,7 +6,7 @@ const statusUnprocessableEntity = 422
 
 type ResponseError struct {
 	Reason string `json:"reason"`
-	Status int    `json:"status`
+	Status int    `json:"status"`
 }
 
 func NotFound(reason string) ResponseError {
