@@ -1,4 +1,4 @@
-package networking
+package error
 
 import "net/http"
 
@@ -9,7 +9,7 @@ type ResponseError struct {
 	Status int    `json:"status`
 }
 
-func (r ResponseError) ResponseError() string { return r.reason }
+func (r ResponseError) Reason() string { return r.reason }
 
 func (r ResponseError) Status() int { return r.status }
 
