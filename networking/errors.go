@@ -9,10 +9,6 @@ type ResponseError struct {
 	Status int    `json:"status`
 }
 
-func (r ResponseError) Reason() string { return r.reason }
-
-func (r ResponseError) Status() int { return r.status }
-
 func NotFound(reason string) ResponseError {
 	return ResponseError{reason, http.StatusNotFound}
 }
